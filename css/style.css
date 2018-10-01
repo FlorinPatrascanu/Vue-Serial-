@@ -1,0 +1,69 @@
+.no-padding {
+    padding: 0 !important;
+}
+
+.part-result {
+    margin-bottom: 1em;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.d-flex-align-center {
+    align-items: center;
+}  
+
+.d-flex-justify-space-between {
+    justify-content: space-between;
+}
+
+.d-flex-justify-end {
+    justify-content: flex-end;
+}  
+
+.mr-1 {
+  margin-right: 1em;
+}
+
+.m-1-0 {
+  margin: 1em 0em;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.paginate-links {
+    background-color: #ccc3c3;
+    padding: 1em !important;
+    margin-bottom: 1em !important;
+}
+
+
+.paginate-links .left-arrow a , .paginate-links .right-arrow a {
+    color: white;
+    cursor: pointer;
+}
+
+.paginate-links .left-arrow.disabled a , .paginate-links .right-arrow.disabled a {
+    color: white;
+    cursor: not-allowed;
+}
+
+.paginate-links .number a {
+    color: white;
+    cursor: pointer;
+}
+
+.paginate-links .number.active a {
+    color: black;
+    text-decoration: underline;
+} 

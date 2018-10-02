@@ -22,8 +22,8 @@
 					
 					<!-- Filters -->
 					<div class="col-xs-12" v-for="filter in filters">
-                      <input type="radio" :value="filter.category" v-model="groupFilter">
-					  <label :for="filter.category">{{filter.category}}</label>
+              <input type="radio" :value="filter.category" v-model="groupFilter">
+					  	<label :for="filter.category">{{filter.category}}</label>
 					</div>
 
 					<!-- Reset filters -->
@@ -37,10 +37,16 @@
 				    <div class="col-xs-12 d-flex d-flex-justify-end m-1-0">
 				      <button class="btn btn-default mr-1" v-on:click="makeList(false)">Tile</button>
 				      <button class="btn btn-primary mr-1" v-on:click="makeList(true)">List</button>
-				    </div>
-				    
+						</div>
+						
+
+						<span class="col-xs-12 paginator-items-count" v-if="$refs.paginator">
+							Viewing {{$refs.paginator.pageItemsCount}} results
+						</span>
+						
+
 				    <!-- Pagination -->
-				    <paginate name="partsMultipleFilters" :per="itemsToShow" :list="partsMultipleFilters" class="col-xs-12 paginate-list d-flex d-flex-wrap">
+				    <paginate ref="paginator" :key="refineSearch" name="partsMultipleFilters" :per="itemsToShow" :list="partsMultipleFilters" class="col-xs-12 paginate-list d-flex d-flex-wrap">
 				    <!-- Parts results -->
 					
 						<li class="part-result" v-bind:class="{'col-xs-12' : isList , 'col-xs-3' : !isList }" v-for="part in paginated('partsMultipleFilters')">
@@ -60,9 +66,9 @@
 						    </div>
 						    
 						    <div v-bind:class="{'col-xs-4' : isList , 'col-xs-12' : !isList }">
-                              <div class="col-xs-12 d-flex d-flex-justify-end">
-                                <p v-if="isList" class="part-price">{{part.price | currency}}</p>
-                              </div>
+									<div class="col-xs-12 d-flex d-flex-justify-end">
+										<p v-if="isList" class="part-price">{{part.price | currency}}</p>
+									</div>
 						      <div class="col-xs-3 no-padding">
                                 <button class="btn btn-default remove-from-fav" v-if="part.isFavorite == true" v-on:click="removeFromFav(part)">
                                     <i class="fa fa-heart"></i>
@@ -83,13 +89,13 @@
 					
 					</paginate>
 					<!-- Pagination links -->
-                    <paginate-links class="col-xs-12 d-flex d-flex-justify-space-between" for="partsMultipleFilters" :show-step-links="true" :step-links="{next: '>>',prev: '<<'}"></paginate-links>
+					<paginate-links class="col-xs-12 d-flex d-flex-justify-space-even" for="partsMultipleFilters" :show-step-links="true" :step-links="{next: '>>',prev: '<<'}"></paginate-links>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+		<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/vue-paginate.js"></script>
     <script src="js/main.js"></script>

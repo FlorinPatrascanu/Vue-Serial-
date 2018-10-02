@@ -81,7 +81,7 @@ var _app = new Vue({
 
         partsMultipleFilters: function() {
             let filtered = this.parts; // reference to main dataset
-
+            let vm = this;
 
             // filter group radios
             if(this.groupFilter !== "All") {
@@ -93,11 +93,19 @@ var _app = new Vue({
             // refine search -- extend with Array of multiple search terms || split search terms by space and push them to an Array
             if(this.refineSearch) {
                 filtered = filtered.filter((part) => part.name.toLowerCase().includes(this.refineSearch.toLowerCase()) || part.number.toLowerCase().includes(this.refineSearch.toLowerCase()))
-            }
+            } 
+
           
             return filtered;
         }
       
+    },
+
+    watch: {
+        // if user types anything into the refine search input , set pagination to page 1
+        refineSearch: function(val) {
+            this.$refs.paginator.goToPage(1)
+        }
     }
 });
 

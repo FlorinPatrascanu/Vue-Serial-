@@ -22,6 +22,10 @@
     justify-content: space-between;
 }
 
+.d-flex-justify-space-even {
+    justify-content: space-evenly;
+}
+
 .d-flex-justify-end {
     justify-content: flex-end;
 }  
@@ -67,3 +71,9 @@ ul {
     color: black;
     text-decoration: underline;
 } 
+
+.paginator-items-count {
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid lightgrey;
+}

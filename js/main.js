@@ -104,7 +104,11 @@ var _app = new Vue({
     watch: {
         // if user types anything into the refine search input , set pagination to page 1
         refineSearch: function(val) {
-            this.$refs.paginator.goToPage(1)
+            this.$refs.paginator.goToPage(1);
+        },
+        // if user clicks any radio filter , set pagination to page 1
+        groupFilter: function(val) {
+            this.$refs.paginator.goToPage(1);
         }
     }
 });

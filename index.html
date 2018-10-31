@@ -22,21 +22,24 @@
 					
 					<!-- Filters -->
 					<div class="col-xs-12" v-for="filter in filters">
-              <input type="radio" :value="filter.category" v-model="groupFilter">
-					  	<label :for="filter.category">{{filter.category}}</label>
+              
+					  	<label :for="filter.category">
+									<input type="radio" :value="filter.category" v-model="groupFilter">
+									{{filter.category}}
+							</label>
 					</div>
 
 					<!-- Reset filters -->
 					<div class="col-xs-12">
-						<button class="btn btn-primary" v-if="groupFilter != 'All'" v-on:click="groupFilter = 'All'">Reset filters</button>
+						<button class="btn btn-primary" v-if="groupFilter != 'All'" @click="groupFilter = 'All'">Reset filters</button>
 					</div>
 				</div>
 				
 				<div class="col-xs-8">
 				    <!-- Switch between Tile and List layouts -->
 				    <div class="col-xs-12 d-flex d-flex-justify-end m-1-0">
-				      <button class="btn btn-default mr-1" v-on:click="makeList(false)">Tile</button>
-				      <button class="btn btn-primary mr-1" v-on:click="makeList(true)">List</button>
+				      <button class="btn btn-default mr-1" @click="makeList(false)">Tile</button>
+				      <button class="btn btn-primary mr-1" @click="makeList(true)">List</button>
 						</div>
 						
 
@@ -49,12 +52,12 @@
 				    <paginate ref="paginator" :key="refineSearch" name="partsMultipleFilters" :per="itemsToShow" :list="partsMultipleFilters" class="col-xs-12 paginate-list d-flex d-flex-wrap">
 				    <!-- Parts results -->
 					
-						<li class="part-result" v-bind:class="{'col-xs-12' : isList , 'col-xs-3' : !isList }" v-for="part in paginated('partsMultipleFilters')">
-						    <div v-bind:class="{'col-xs-2' : isList , 'col-xs-12' : !isList }">
+						<li class="part-result" :class="{'col-xs-12' : isList , 'col-xs-3' : !isList }" v-for="part in paginated('partsMultipleFilters')">
+						    <div :class="{'col-xs-2' : isList , 'col-xs-12' : !isList }">
 						      <img :src="part.image" class="img-responsive">
 						    </div>
 						    
-						    <div v-bind:class="{'col-xs-6' : isList , 'col-xs-12' : !isList }">
+						    <div :class="{'col-xs-6' : isList , 'col-xs-12' : !isList }">
                               <p class="part-number">{{part.number}}</p>
 						      <p class="part-name">{{part.name}}</p>
 						      <p v-if="!isList" class="part-price">{{part.price | currency}}</p>
@@ -65,20 +68,28 @@
 						      </div>
 						    </div>
 						    
-						    <div v-bind:class="{'col-xs-4' : isList , 'col-xs-12' : !isList }">
+						    <div :class="{'col-xs-4' : isList , 'col-xs-12' : !isList }">
 									<div class="col-xs-12 d-flex d-flex-justify-end">
 										<p v-if="isList" class="part-price">{{part.price | currency}}</p>
 									</div>
 						      <div class="col-xs-3 no-padding">
-                                <button class="btn btn-default remove-from-fav" v-if="part.isFavorite == true" v-on:click="removeFromFav(part)">
-                                    <i class="fa fa-heart"></i>
-                                </button>
-                                <button class="btn btn-default add-to-favorite" v-else v-on:click="addToFav(part)">
-                                    <i class="fa fa-heart-o"></i>
-                                </button> 
+											<button class="btn btn-default remove-from-fav" v-if="part.isFavorite == true" @click="removeFromFav(part)">
+													<i class="fa fa-heart"></i>
+											</button>
+											<button class="btn btn-default add-to-favorite" v-else @click="addToFav(part)">
+													<i class="fa fa-heart-o"></i>
+											</button> 
 						      </div>
-						      
-						      <div class="col-xs-9" v-bind:class="{'d-flex d-flex-justify-end' : isList}">
+									
+									
+									<!-- B2C Add To Cart Scenario -->
+						      <div class="col-xs-9" :class="{'d-flex d-flex-justify-end' : isList}">
+										<input type="number" class="form-control w-75" 
+											:value="part._quantity" 
+											:min="part._quantity" 
+											:max="part.stock"
+											:step="part._quantity"
+											@change="quantityHandler(part , $event)"/>
 						        <button class="btn btn-default add-to-cart" v-if="parseInt(part.stock) > 0">
 						          Add To Cart
 						        </button>

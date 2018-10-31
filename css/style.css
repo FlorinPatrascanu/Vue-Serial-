@@ -77,3 +77,7 @@ ul {
     padding-bottom: 0.5em;
     border-bottom: 1px solid lightgrey;
 }
+
+.w-75 {
+    width: 75px;
+}

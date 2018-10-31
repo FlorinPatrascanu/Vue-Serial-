@@ -35,8 +35,14 @@ var _app = new Vue({
   
     mounted() {
         axios.get("data/parts.json").then(response => {
-          console.log(response);
-          this.parts = response.data;
+
+          let partsExtendedWithMinimumQty = response.data.reduce((r,v,k) => {
+              v.hasOwnProperty("customField_MinimumQuantity") ? v._quantity = v.customField_MinimumQuantity : v._quantity = 1;
+              r = [...r,v];
+              return r;
+          },[]);
+
+          this.parts = partsExtendedWithMinimumQty;
         });
     },
 
@@ -62,6 +68,33 @@ var _app = new Vue({
 
             // change is favorite to false
             part.isFavorite = false;
+        },
+
+        quantityHandler: function(part , event) {
+            console.log(part);
+
+            let range = [];
+            let min = parseInt(part._quantity);
+            let max = parseInt(part.stock);
+            let req = event.currentTarget.value;
+
+            for(let i = min; i <= max; i = i + min) {
+                range = [...range,i];
+            }
+
+            console.log(range);
+
+            console.log(req);
+
+            // figure out how to use functions that can be declared outside of Vue's scope 
+            // let out = rounded(range,req);
+        },
+
+
+        rounded: function(arr,val) {
+            for(let i = 0; i < arr.length; i++) {
+                array[i] >= val ? array[i] : false;
+            }
         }
     },
 
@@ -110,6 +143,7 @@ var _app = new Vue({
         groupFilter: function(val) {
             this.$refs.paginator.goToPage(1);
         }
+
     }
 });
 
